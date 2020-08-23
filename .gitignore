@@ -1,0 +1,11 @@
+obj
+bin
+.ionide
+.farmer
+.env
+
+apps/data
+apps/logs
+apps/config
+
+notes.md

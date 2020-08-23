@@ -1,0 +1,78 @@
+# VPS
+
+This repo holds scripts and configuration files to [self-host] some web services
+such as [Bitwarden] and [Nextcloud] on a private server.  
+The goal is to have a *simple* (as in: concise, programmatic and declarative), 
+cheap and secure setup to handle file synchronization
+and credential management for a few users (e.g. <10).
+
+> *There exist several tutorials about self-hosting those apps, 
+but none of them fit the bill for me, so I'm publishing this repo 
+in case it's useful to anyone.*
+
+## VPS on Azure
+
+> Prerequisites:
+>  - [Azure CLI][azure-cli] - login with your Azure client (`az login`) and select the right Azure subscription (`az account set --subscription "NameOfYourSubscription"`)
+>  - [.NET core 3.1][dotnet-core]
+  
+In the `vms` folder is a [Farmer] script that creates a virtual machine with this specs:
+ - SKU: Standard B2s 2vCPUs, 4GB RAM, 60GB SSD (~20€/mo as of 8/2020)
+ - region: north europe
+ - OS: Ubuntu 20.04
+
+To create the virtual machine, change directory to `vms` and:
+ 1. copy `env.example` to `.env` and edit it as suitable for 
+ username, password, hostname and resource name
+ 2. issue: `make deploy`. The script will deploy the VM and 
+ generate the related ARM template json file
+ 3. copy `setup-vm.sh` to the newly created VM and execute it to setup the firewall, and install some required tools.
+ Log out and log in again and verify Docker is working with `docker info`. (*TODO: automate*)
+ 4. setup passwordless authentication
+    - copy your public key to the VM: `ssh-copy-id -i ~/.ssh/mypub.key user@server`
+    - editing the following settings in `/etc/ssh/sshd_config` on the VM: `PasswordAuthentication no`;
+    `ChallengeResponseAuthentication no`; `UsePAM no`.
+    Then restart sshd: `sudo systemctl restart ssh`.
+ 5. set up start and stop VM automation during off hours as described [here][vm-automation], and make the VM IP static (*TODO: automate*)
+
+## Applications
+
+> Prerequisites:
+This setup assumes you own a DNS domain, and your made its
+`A Record` for the naked domain (`@`) and for
+the subdomains (`*`) point to the VM public IP. 
+Failing that, you'll still be able to run the applications, 
+but Caddy will have issues creating the certificates to use 
+for the HTTPS connections. 
+Notice that while Azure virtual machine are assigned a public DNS 
+name (e.g. `<name>.<region>.cloudapp.azure.net`), their DNS setting 
+does not allow using subdomains, so it won't work.
+
+`apps` directory contains the Docker Compose file
+to run Bitwarden and Nextcloud (with its MariaDB database) behind [Caddy] reverse proxy.  
+At the end of the instructions 
+ - Nextcloud will be reachable at `https://nc.<your domain>` and `https://<your domain>`
+ - Bitwarden will be reachable at `https://bw.<your domain>`
+
+
+To deploy the applications:
+  1. copy the app directory to your server (or clone this repo)
+  2. change to `apps` folder, copy `env.example` to `.env` and edit it as suitable 
+  3. run `make up`. You can follow the progress of the setup by issuing `make log`.
+
+## :construction_worker: To do
+
+ - add instructions for adding Prometheus and Graphana to monitor
+ host VM, Docker and applications
+ - add instruction for maintenance and backup
+ - automate the remaining manual steps of VM creation
+
+
+ [vm-automation]: https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management-enable
+ [bitwarden]: https://bitwarden.com/
+ [nextcloud]: https://nextcloud.com/
+ [self-host]: https://en.wikipedia.org/wiki/Self-hosting_(web_services)
+ [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
+ [dotnet-core]: https://dotnet.microsoft.com/download/dotnet-core/3.1
+ [farmer]: https://compositionalit.github.io/farmer/
+ [caddy]: https://caddyserver.com/

@@ -1,0 +1,59 @@
+{
+    email {$MY_EMAIL}
+    # uncomment the following when executing on localhost
+    #acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+{$MY_DOMAIN} {
+  redir https://nc.{$MY_DOMAIN} permanent
+
+  log {
+    output file /logs/root.log
+    level INFO
+  }
+}
+
+bw.{$MY_DOMAIN} {
+  # This setting may have compatibility issues with some browsers
+  # (e.g., attachment downloading on Firefox). Try disabling this
+  # if you encounter issues.
+  encode gzip
+
+  header {
+    # Enable cross-site filter (XSS) and tell browser to block detected attacks
+    X-XSS-Protection "1; mode=block"
+    # Disallow the site to be rendered within a frame (clickjacking protection)
+    X-Frame-Options "DENY"
+    # Prevent search engines from indexing (optional)
+    X-Robots-Tag "none"
+    # Server name removing
+    -Server
+   }
+
+  # The negotiation endpoint is also proxied to Rocket
+  reverse_proxy /notifications/hub/negotiate bitwarden:80
+
+  # Notifications redirected to the websockets server
+  reverse_proxy /notifications/hub bitwarden:3012
+
+  # Proxy the Root directory to Rocket
+  reverse_proxy bitwarden:80
+
+  log {
+    output file /logs/bw.log
+    level INFO
+  }
+}
+
+nc.{$MY_DOMAIN} {
+  reverse_proxy nextcloud:80
+
+  header Strict-Transport-Security max-age=31536000;
+  redir /.well-known/carddav /remote.php/carddav 301
+  redir /.well-known/caldav /remote.php/caldav 301
+
+  log {
+    output file /logs/nc.log
+    level INFO
+  }
+}

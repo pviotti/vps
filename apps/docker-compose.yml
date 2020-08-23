@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  caddy:
+    image: caddy:alpine
+    container_name: caddy
+    hostname: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - MY_DOMAIN
+      - MY_EMAIL
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./data/caddy:/data
+      - ./config/caddy:/config
+      - ./logs:/logs
+
+  bitwarden:
+    image: bitwardenrs/server:alpine
+    container_name: bitwarden
+    hostname: bitwarden
+    restart: unless-stopped
+    volumes:
+      - ./data/bitwarden:/data
+
+  mariadb:
+    image: mariadb:10.5
+    container_name: mariadb
+    hostname: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data/nextcloud-db:/var/lib/mysql
+
+  nextcloud:
+    image: nextcloud:apache
+    container_name: nextcloud
+    hostname: nextcloud
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data/nextcloud:/var/www/html/data
+      - ./config/nexcloud:/var/www/html/config
+    depends_on:
+      - mariadb
