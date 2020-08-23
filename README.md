@@ -1,29 +1,30 @@
 # VPS
 
 This repo holds scripts and configuration files to [self-host] some web services
-such as [Bitwarden] and [Nextcloud] on a private server.  
+such as [Bitwarden] and [Nextcloud] on a private server.
 The goal is to have a *simple* (as in: concise, programmatic and declarative), 
 cheap and secure setup to handle file synchronization
 and credential management for a few users (e.g. <10).
 
 > *There exist several tutorials about self-hosting those apps, 
-but none of them fit the bill for me, so I'm publishing this repo 
+but none of them matches my requirements, so I'm publishing this repo 
 in case it's useful to anyone.*
 
 ## VPS on Azure
 
-> Prerequisites:
->  - [Azure CLI][azure-cli] - login with your Azure client (`az login`) and select the right Azure subscription (`az account set --subscription "NameOfYourSubscription"`)
->  - [.NET core 3.1][dotnet-core]
+> Prerequisites: [Azure CLI][azure-cli] (select the right Azure subscription: 
+`az login; az account set --subscription "NameOfSubscription"`);
+[.NET core 3.1][dotnet-core].
   
-In the `vms` folder is a [Farmer] script that creates a virtual machine with this specs:
- - SKU: Standard B2s 2vCPUs, 4GB RAM, 60GB SSD (~20€/mo as of 8/2020)
- - region: north europe
+In the `vms` folder is a [Farmer] script that creates a virtual machine 
+on Azure with this specs:
+ - [SKU][azure-vm-sku]: Standard B2s 2vCPUs, 4GB RAM, 60GB SSD (~20€/mo as of 8/2020)
+ - [region][azure-regions]: North Europe
  - OS: Ubuntu 20.04
 
 To create the virtual machine, change directory to `vms` and:
  1. copy `env.example` to `.env` and edit it as suitable for 
- username, password, hostname and resource name
+ username, password, host and resource name
  2. issue: `make deploy`. The script will deploy the VM and 
  generate the related ARM template json file
  3. copy `setup-vm.sh` to the newly created VM and execute it to setup the firewall, and install some required tools.
@@ -38,13 +39,13 @@ To create the virtual machine, change directory to `vms` and:
 ## Applications
 
 > Prerequisites:
-This setup assumes you own a DNS domain, and your made its
-`A Record` for the naked domain (`@`) and for
-the subdomains (`*`) point to the VM public IP. 
+this setup assumes you own a DNS domain, and your made its
+`A Record`s for naked domain (`@`) and subdomains (`*`) 
+point to the VM's public IP. 
 Failing that, you'll still be able to run the applications, 
 but Caddy will have issues creating the certificates to use 
 for the HTTPS connections. 
-Notice that while Azure virtual machine are assigned a public DNS 
+Notice that while Azure virtual machine have a public DNS 
 name (e.g. `<name>.<region>.cloudapp.azure.net`), their DNS setting 
 does not allow using subdomains, so it won't work.
 
@@ -53,7 +54,6 @@ to run Bitwarden and Nextcloud (with its MariaDB database) behind [Caddy] revers
 At the end of the instructions 
  - Nextcloud will be reachable at `https://nc.<your domain>` and `https://<your domain>`
  - Bitwarden will be reachable at `https://bw.<your domain>`
-
 
 To deploy the applications:
   1. copy the app directory to your server (or clone this repo)
@@ -64,10 +64,12 @@ To deploy the applications:
 
  - add instructions for adding Prometheus and Graphana to monitor
  host VM, Docker and applications
- - add instruction for maintenance and backup
+ - add instructions for maintenance and backup
  - automate the remaining manual steps of VM creation
 
 
+ [azure-vm-sku]: https://docs.microsoft.com/en-us/azure/virtual-machines/sizes
+ [azure-regions]: https://azure.microsoft.com/en-us/global-infrastructure/geographies/#overview
  [vm-automation]: https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management-enable
  [bitwarden]: https://bitwarden.com/
  [nextcloud]: https://nextcloud.com/
