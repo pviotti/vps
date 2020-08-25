@@ -22,8 +22,11 @@ let main argv =
         os_disk 64 Vm.Premium_LRS
         diagnostics_support
         domain_name_prefix (Some vmHostname) 
-        // the following doesn't seem to work - https://github.com/CompositionalIT/farmer/issues/319
-        //custom_script_files [ "https://gist.githubusercontent.com/pviotti/f3aca8f5746add0a0ba1310de8ad7ad7/raw/e22dd35e75716df0ffec2f0d4d1edaa769725ccc/setup-vm.sh" ]
+
+        // script will be executed by root
+        // log file will be in /var/lib/waagent/custom-script/download/0/
+        custom_script ("bash setup-vm.sh > setup-vm.log 2>&1; sudo usermod -aG docker " + vmUsername)
+        custom_script_files [ "https://gist.githubusercontent.com/pviotti/f3aca8f5746add0a0ba1310de8ad7ad7/raw/3ec4eb38bdd9a2a67a561f02d18ec49e58c9c6ac/setup-vm.sh" ]
     }
 
     let deployment = arm {

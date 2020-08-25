@@ -26,15 +26,15 @@ To create the virtual machine, change directory to `vms` and:
  1. copy `env.example` to `.env` and edit it as suitable for 
  username, password, host and resource name
  2. issue: `make deploy`. The script will deploy the VM and 
- generate the related ARM template json file
- 3. copy `setup-vm.sh` to the newly created VM and execute it to setup the firewall, and install some required tools.
- Log out and log in again and verify Docker is working with `docker info`. (*TODO: automate*)
- 4. setup passwordless authentication
+ generate the related ARM template json file. 
+ A setup script similar to `setup-vm.sh` will be executed upon deployment 
+ to install required tools (e.g. Docker, etc)
+ 3. setup passwordless authentication
     - copy your public key to the VM: `ssh-copy-id -i ~/.ssh/mypub.key user@server`
     - editing the following settings in `/etc/ssh/sshd_config` on the VM: `PasswordAuthentication no`;
     `ChallengeResponseAuthentication no`; `UsePAM no`.
     Then restart sshd: `sudo systemctl restart ssh`.
- 5. set up start and stop VM automation during off hours as described [here][vm-automation], and make the VM IP static (*TODO: automate*)
+ 4. set up start and stop VM automation during off hours as described [here][vm-automation], and make the VM IP static (*TODO: automate*)
 
 ## Applications
 
