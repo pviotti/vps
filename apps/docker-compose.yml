@@ -23,6 +23,9 @@ services:
     container_name: bitwarden
     hostname: bitwarden
     restart: unless-stopped
+    environment:
+      - SIGNUPS_ALLOWED
+      - ADMIN_TOKEN
     volumes:
       - ./data/bitwarden:/data
 
