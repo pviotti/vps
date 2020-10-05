@@ -10,6 +10,6 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="1.4.0" />
-    <PackageReference Include="Farmer" Version="0.24.0" />
+    <PackageReference Include="Farmer" Version="1.1.1" />
   </ItemGroup>
 </Project>
