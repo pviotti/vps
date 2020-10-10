@@ -60,11 +60,26 @@ To deploy the applications:
   2. change to `apps` folder, copy `env.example` to `.env` and edit it as suitable 
   3. run `make up`. You can follow the progress of the setup by issuing `make log`.
 
+## Maintenance
+
+### Applications upgrade
+
+To upgrade the applications just issue:
+
+    docker-compose pull
+    docker-compose down
+    docker-compose up -d
+  
+Or, more cautiously, issue the same commands but for one application at a time, 
+e.g.`docker-compose pull nextcloud`.  
+Beware that some applications require additional steps when upgrading 
+between major versions, so make sure to read their upgrade documentation too.
+
 ## :construction_worker: To do
 
  - add instructions for adding Prometheus and Graphana to monitor
  host VM, Docker and applications
- - add instructions for maintenance and backup
+ - add instructions for backup
  - automate the remaining manual steps of VM creation
 
 
