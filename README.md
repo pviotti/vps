@@ -82,6 +82,9 @@ between major versions, so make sure to read their upgrade documentation too.
  - add instructions for backup
  - automate the remaining manual steps of VM creation
 
+## References
+
+ - [best practices for Docker Compose][docker-compose]
 
  [azure-vm-sku]: https://docs.microsoft.com/en-us/azure/virtual-machines/sizes
  [azure-regions]: https://azure.microsoft.com/en-us/global-infrastructure/geographies/#overview
@@ -93,3 +96,4 @@ between major versions, so make sure to read their upgrade documentation too.
  [dotnet-core]: https://dotnet.microsoft.com/download/dotnet-core/3.1
  [farmer]: https://compositionalit.github.io/farmer/
  [caddy]: https://caddyserver.com/
+ [docker-compose]: https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-with-docker-compose
