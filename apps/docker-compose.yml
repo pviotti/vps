@@ -30,7 +30,7 @@ services:
       - ./data/bitwarden:/data
 
   mariadb:
-    image: mariadb:10.5
+    image: mariadb:10.6
     container_name: mariadb
     hostname: mariadb
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
