@@ -7,7 +7,7 @@ open System
 [<EntryPoint>]
 let main argv =
 
-    Env.Load()
+    Env.Load() |> ignore
     let vmHostname = Env.GetString("VM_HOSTNAME")
     let vmUsername = Env.GetString("VM_USERNAME")
     let vmPassword = Env.GetString("VM_PASSWORD")
