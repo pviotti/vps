@@ -14,7 +14,7 @@ in case it's useful to anyone.*
 
 > Prerequisites: [Azure CLI][azure-cli] (select the right Azure subscription: 
 `az login; az account set --subscription "NameOfSubscription"`);
-[.NET core 3.1][dotnet-core].
+[.NET 5][dotnet].
   
 In the `vms` folder is a [Farmer] script that creates a virtual machine 
 on Azure with this specs:
@@ -93,7 +93,7 @@ between major versions, so make sure to read their upgrade documentation too.
  [nextcloud]: https://nextcloud.com/
  [self-host]: https://en.wikipedia.org/wiki/Self-hosting_(web_services)
  [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
- [dotnet-core]: https://dotnet.microsoft.com/download/dotnet-core/3.1
+ [dotnet]: https://dotnet.microsoft.com/download/dotnet
  [farmer]: https://compositionalit.github.io/farmer/
  [caddy]: https://caddyserver.com/
  [docker-compose]: https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-with-docker-compose
