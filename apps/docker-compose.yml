@@ -1,3 +1,4 @@
+version: "3.8"
 
 services:
   caddy:
@@ -18,7 +19,7 @@ services:
       - ./logs:/logs
 
   bitwarden:
-    image: bitwardenrs/server:alpine
+    image: vaultwarden/server:latest
     container_name: bitwarden
     hostname: bitwarden
     restart: unless-stopped
