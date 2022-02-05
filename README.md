@@ -9,9 +9,11 @@ and credential management for a few users (e.g. <10).
 ## VPS on Azure
 
 <details><summary>Prerequisites</summary>
- - [Azure CLI][azure-cli] (select the right Azure subscription:
- `az login; az account set --subscription "NameOfSubscription"`)
- - [.NET core 3.1][dotnet-core].
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI</a> (select the right Azure subscription: <pre>
+ az login; az account set --subscription "NameOfSubscription"</pre>)</li>
+ <li><a href="https://dotnet.microsoft.com/">.NET</a></li>
+ </ul>
 </details>
 
 In the `vms` folder is a [Farmer] script that creates a virtual machine
@@ -38,13 +40,13 @@ To create the virtual machine, change directory to `vms` and:
 
 <details><summary>Prerequisites</summary>
 This setup assumes you own a DNS domain, and you've made its
-`A Record`s for naked domain (`@`) and subdomains (`*`)
+"A Record"s for naked domain ("@") and subdomains ("*")
 point to the VM's public IP.
 Failing that, you'll still be able to run the applications,
 but Caddy will have issues creating the certificates to use
 for the HTTPS connections.
 Notice that while Azure virtual machines have a public DNS
-name (e.g. `<name>.<region>.cloudapp.azure.net`), their DNS setting
+name (e.g. name.region.cloudapp.azure.net), their DNS setting
 does not allow using subdomains, so it won't work.
 </details>
 
@@ -92,7 +94,7 @@ between major versions, so make sure to read their upgrade documentation too.
  [nextcloud]: https://nextcloud.com/
  [self-host]: https://en.wikipedia.org/wiki/Self-hosting_(web_services)
  [azure-cli]: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
- [dotnet]: https://dotnet.microsoft.com/download/dotnet
+ [dotnet]: https://dotnet.microsoft.com/
  [farmer]: https://compositionalit.github.io/farmer/
  [caddy]: https://caddyserver.com/
  [docker-compose]: https://nickjanetakis.com/blog/best-practices-around-production-ready-web-apps-with-docker-compose
