@@ -11,3 +11,4 @@ apps/config
 vms/*.json
 
 notes.md
+k8s.md
