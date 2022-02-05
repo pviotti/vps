@@ -3,7 +3,7 @@
 echo "Update packages and install utilities..."
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y vim htop screen git make
+sudo apt install -y vim htop screen git make ranger tig
 
 echo "Install Docker..."
 curl -sSL https://get.docker.com/ | sh
