@@ -10,8 +10,7 @@ and credential management for a few users (e.g. <10).
 
 <details><summary>Prerequisites</summary>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI</a> (select the right Azure subscription: <pre>
- az login; az account set --subscription "NameOfSubscription"</pre>)</li>
+<li><a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest">Azure CLI</a> - and select the right Azure subscription: <pre>az login; az account set --subscription "NameOfSubscription"</pre></li>
  <li><a href="https://dotnet.microsoft.com/">.NET</a></li>
  </ul>
 </details>
