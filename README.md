@@ -88,7 +88,7 @@ between major versions, so make sure to read their upgrade documentation too.
 
  [azure-vm-sku]: https://docs.microsoft.com/en-us/azure/virtual-machines/sizes
  [azure-regions]: https://azure.microsoft.com/en-us/global-infrastructure/geographies/#overview
- [vm-automation]: https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management-enable
+ [vm-automation]: https://learn.microsoft.com/en-us/azure/azure-functions/start-stop-vms/overview
  [bitwarden]: https://bitwarden.com/
  [nextcloud]: https://nextcloud.com/
  [self-host]: https://en.wikipedia.org/wiki/Self-hosting_(web_services)
