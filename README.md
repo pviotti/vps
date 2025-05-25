@@ -6,6 +6,10 @@ The goal is to have a *simple* (as in: concise, programmatic and declarative),
 cheap and secure setup to handle file synchronization
 and credential management for a few users (e.g. <10).
 
+> :warning: Deprecation: while this repository can still be useful and as of 2025 still 
+contains a working configuration, I moved away from it and I don't intend to maintain it
+anymore.
+
 ## VPS on Azure
 
 <details><summary>Prerequisites</summary>
