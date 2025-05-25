@@ -2,7 +2,7 @@ version: "3"
 
 services:
   caddy:
-    image: caddy:alpine
+    image: caddy:2-alpine
     container_name: caddy
     hostname: caddy
     restart: unless-stopped
@@ -41,7 +41,7 @@ services:
       - ./data/nextcloud-db:/var/lib/mysql
 
   nextcloud:
-    image: nextcloud:apache
+    image: nextcloud:30-apache
     container_name: nextcloud
     hostname: nextcloud
     restart: unless-stopped
