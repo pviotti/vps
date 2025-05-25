@@ -41,7 +41,7 @@ services:
       - ./data/nextcloud-db:/var/lib/mysql
 
   nextcloud:
-    image: nextcloud:30-apache
+    image: nextcloud:31-apache
     container_name: nextcloud
     hostname: nextcloud
     restart: unless-stopped
